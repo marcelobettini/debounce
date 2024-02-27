@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Learn to debounce</title>
+</head>
+
+<body class="container">
+ <header>
+  <h1>A guide to debounce</h1>
+  <p>Learn how to debounce an <code>&lt;input&gt;</code> to avoid re-renders after each keystroke.</p>
+ </header>
+ <form action="">
+  <input type="search" name="" id="searchInput" aria-label="Search Term"
+   aria-placeholder="Full or partial title of a book" placeholder="The catcher in the rye, In cold blood...">
+ </form>
+ <p id="inputContent"></p>
+ <p>Repaints: <span id="repaintCount">0</span></p>
+</body>
+<script>
+ let debounceTimer;
+ function debounce(func, delay) {
+  clearTimeout(debounceTimer)
+  debounceTimer = setTimeout(func, delay)
+ }
+
+ let repCounter = 0
+ function handleSearch(text) {
+  debounce(() => {
+   inputContent.innerText = text;
+   repaintCount.innerText = ++repCounter;
+  }, 500)
+ }
+ searchInput.addEventListener("input", (e) => handleSearch(e.target.value))
+</script>
+
+</html>
